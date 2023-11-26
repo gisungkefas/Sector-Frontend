@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get("sector-task-with-node-y78y.vercel.app/api/sectors")
+      .get("https://sector-task-with-node-y78y.vercel.app/api/sectors")
       .then((response) => {
         setSectorOptions(response.data.data);
       })
@@ -51,7 +51,7 @@ const App = () => {
     }
 
     axios
-      .post("sector-task-with-node-y78y.vercel.app/api/uploads", formData)
+      .post("https://sector-task-with-node-y78y.vercel.app/api/uploads", formData)
       .then((response) => {
         toast.success("Data has been sent!");
         resetForm();
