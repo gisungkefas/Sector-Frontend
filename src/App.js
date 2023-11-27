@@ -85,6 +85,31 @@ const App = () => {
     });
   };
 
+  const handleDelete = (index) => {
+    if (window.confirm("Are you sure you want to delete this entry?")) {
+      const deletedEntry = details[index];
+
+      axios
+        .delete(`https://sector-api.vercel.app/api/uploads/${deletedEntry.id}`)
+        .then((response) => {
+          setDetails((prevDetails) => prevDetails.filter((_, i) => i !== index));
+          toast.success("Entry deleted successfully");
+        })
+        .catch((error) => {
+          console.error("Error deleting entry:", error);
+        });
+    }
+  };
+
+  const handleEdit = (index) => {
+    const editedEntry = details[index];
+    setEditModalData(editedEntry);
+    setEditModalOpen(true);
+  };
+  
+  const [setEditModalOpen] = useState(false);
+  const [setEditModalData] = useState(null);
+
   return (
     <>
       <div className="container mx-auto p-8 h-screen bg-green-50">
@@ -183,13 +208,13 @@ const App = () => {
                   <td className="p-2">
                     <button
                       className="bg-yellow-500 text-white px-3 py-1 rounded mr-2"
-                      // Add your edit logic or function here
+                      onClick={() => handleEdit(index)}
                     >
                       Edit
                     </button>
                     <button
                       className="bg-red-500 text-white px-3 py-1 rounded"
-                      // Add your delete logic or function here
+                      onClick={() => handleDelete(index)}
                     >
                       Delete
                     </button>
