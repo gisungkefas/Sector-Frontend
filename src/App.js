@@ -12,13 +12,28 @@ const App = () => {
   });
 
   const [sectorOptions, setSectorOptions] = useState({});
+  const [details, setDetails] = useState([]);
+
+  
   const categoryOptions = Object.keys(sectorOptions);
 
   useEffect(() => {
     axios
-      .get("https://sector-api.vercel.app/api/sectors")
+    .get("https://sector-api.vercel.app/api/sectors")
       .then((response) => {
         setSectorOptions(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching sector options:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+  
+    axios
+    .get("https://sector-api.vercel.app/api/uploads")
+      .then((response) => {
+        setDetails(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching sector options:", error);
@@ -51,7 +66,7 @@ const App = () => {
     }
 
     axios
-      .post("https://sector-api.vercel.app/api/uploads", formData)
+      .post("http://sector-api.vercel.app/api/uploads", formData)
       .then((response) => {
         toast.success("Data has been sent!");
         resetForm();
@@ -74,7 +89,8 @@ const App = () => {
     <>
       <div className="container mx-auto p-8 h-screen bg-green-50">
         <h1 className="text-3xl font-bold mb-5 text-center">
-          Please enter your name and pick the Sectors you are currently involved in.
+          Please enter your name and pick the Sectors you are currently involved
+          in.
         </h1>
         <form
           onSubmit={handleSubmit}
@@ -146,6 +162,46 @@ const App = () => {
             Save
           </button>
         </form>
+        {details.length > 0 ? (
+        <div>
+          <h2 className="text-2xl font-bold mb-3 mt-5">Uploaded Entries:</h2>
+          <table className="w-full border">
+            <thead>
+              <tr className="bg-blue-500 text-white">
+                <th className="p-2">Name</th>
+                <th className="p-2">Sector</th>
+                <th className="p-2">Sub-Sector</th>
+                <th className="p-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {details.map((entry, index) => (
+                <tr key={index} className="border-b">
+                  <td className="p-2">{entry.name}</td>
+                  <td className="p-2">{entry.selectedCategory}</td>
+                  <td className="p-2">{entry.selectedSector}</td>
+                  <td className="p-2">
+                    <button
+                      className="bg-yellow-500 text-white px-3 py-1 rounded mr-2"
+                      // Add your edit logic or function here
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="bg-red-500 text-white px-3 py-1 rounded"
+                      // Add your delete logic or function here
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p>No entries</p>
+      )}
       </div>
       <ToastContainer position="bottom-right" autoClose={3000} />
     </>
