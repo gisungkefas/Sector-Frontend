@@ -1,10 +1,10 @@
 // AppContent.js
 import React, { useState, useEffect } from "react";
-import { useEntries, EntriesProvider } from "./context/EntriesContext";
+import { useEntries, EntriesProvider } from "./context/EntriesContext.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FormComponent from "./components/FormComponent";
-import EntryListComponent from "./components/EntryListComponent";
+import FormComponent from "./components/FormComponents";
+import EntryListComponent from "./components/EntryListComponents";
 
 const AppContent = () => {
   const {
