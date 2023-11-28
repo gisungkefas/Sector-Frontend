@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
 import axios from "axios";
 
-const baseUrl = "https://sector-api.vercel.app";
+const baseUrl = "http://sector-api.vercel.app";
 
 const EntriesContext = createContext();
 
