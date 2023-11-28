@@ -10,7 +10,6 @@ const FormComponent = ({
   const categoryOptions = Object.keys(sectorOptions);
 
   const validateName = (value) => {
-    // Regular expression to check if the name contains only letters and spaces
     const regex = /^[A-Za-z\s]+$/;
     return regex.test(value);
   };
@@ -18,11 +17,9 @@ const FormComponent = ({
   const handleNameChange = (e) => {
     const { value } = e.target;
 
-    // Check if the entered name is valid
     if (validateName(value) || value === "") {
       handleChange(e);
     }
-    // You may add an error message or feedback for the user if the name is invalid
   };
 
   return (

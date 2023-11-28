@@ -64,7 +64,6 @@ const AppContent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Custom validation for checkbox
     if (!formData.agreeToTerms) {
       toast.error("Please agree to the terms before saving.");
       return;
